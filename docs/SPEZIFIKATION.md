@@ -45,6 +45,7 @@ Eine Installation bedient genau eine Schule. Das hält Betrieb und Datenschutz e
 - **F-04** Die Lehrkraft kann die Kinder-Anmeldung je Klasse öffnen und schließen. Bei geschlossener Klasse wird keine Namensliste ausgegeben.
 - **F-05** Nach 5 Fehlversuchen ist das Kind 10 Minuten gesperrt. Die Lehrkraft kann die Sperre aufheben und ein neues Bilderpasswort erzeugen.
 - **F-06** Sitzungen enden automatisch: Kinder nach 4 Stunden, Lehrkräfte nach 12 Stunden. Lehrkraft-Logins sind pro Benutzername und Adresse begrenzt.
+- **F-07** Freies Spielen (Schul-Einstellung, Standard aus): Wer nicht angemeldet ist, landet direkt bei den Welten und spielt als Gast. Die Kinder-Anmeldung entfällt, die Stufe wählt das Kind selbst. Gastrunden werden weder im Browser noch auf dem Server gespeichert; Sterne, Album, Aufgaben, Quizze und Lese-Kachel gibt es für Gäste nicht. Lehrkräfte und Verwaltung melden sich weiter an. Bereits angemeldete Kinder spielen normal weiter.
 
 ### 3.2 Klassen und Kinder
 
@@ -114,6 +115,10 @@ Motorik: T = Tastatur, K = Klick/Tippen, Z = Ziehen, M = Malen.
 | `silben` *(neu)* | Silbenklatschen | Silben erkennen | K T | 1–2 Silben zählen / 2–3 Silben zählen / Wort aus Silben zusammensetzen |
 | `zahlenhaus` *(neu)* | Zahlenhaus | Zahlzerlegung | K T | Zahlen bis 5 / bis 10 / bis 20 |
 | `blitzblick` *(neu)* | Blitzblick | Mengen auf einen Blick erfassen | K T | bis 5 Punkte, geordnet / bis 10 im Zehnerfeld / bis 20 in zwei Zehnerfeldern |
+| `zehnerfeld` *(neu)* | Zehnerfeld | Zehnerübergang | K T | mit Zwischenschritten und Bild / mit Zwischenschritten / Ergebnis direkt |
+| `quatsch` *(neu)* | Bild oder Quatsch? | Sätze lesen und prüfen | K T | kurze Sätze / zwei Dinge im Bild / Anzahl und Lage |
+| `reime` *(neu)* | Reimpaare | Reime erkennen | K T | 2 / 3 / 4 Bilder zur Wahl |
+| `hunderterfeld` *(neu)* | Hunderterfeld | Zahlenraum bis 100 | K T | alle Zahlen sichtbar / nur Zehnerzahlen sichtbar / leeres Feld |
 | `quiz` *(neu)* | Eigenes Quiz | von der Lehrkraft | K T | keine Stufen |
 
 **`zahlenstrahl`:** Das Kind bringt Bruno an die genannte Zahl. Nur Eckpunkte sind beschriftet, damit die Lage geschätzt und nicht abgelesen wird. Rückmeldung bei Fehlern: genannte Position und Richtung („Das ist die 6. Die 7 liegt weiter rechts.“).
@@ -127,6 +132,14 @@ Motorik: T = Tastatur, K = Klick/Tippen, Z = Ziehen, M = Malen.
 **`zahlenhaus`:** In jedem Stockwerk steht eine Zerlegung der Dachzahl, das Kind ergänzt die fehlende Zahl (7 = 3 + ?). Bildpunkte in zwei Farben zeigen die Zerlegung als Hilfe. Rückmeldung bei Fehlern: Die Punkte werden gezeigt und die Summe genannt („3 und 5 sind 8. Wir brauchen 7.“).
 
 **`blitzblick`:** Eine Menge erscheint kurz, das Kind wählt danach die Anzahl aus. Die Anzeigedauer beträgt je nach Stufe 2 / 1,5 / 1 Sekunde und lässt sich in den Klasseneinstellungen nicht verkürzen. B-06 bleibt gewahrt: Für die Antwort gibt es kein Zeitlimit, und „Noch mal zeigen“ ist jederzeit möglich, zählt aber als Tipp. Die Menge erscheint und verschwindet ohne Animation. Rückmeldung bei Fehlern: Die Menge bleibt stehen und wird in Gruppen gezeigt („Hier sind 5 und noch 2, das sind 7.“).
+
+**`zehnerfeld`:** Aufgaben a + b mit Ergebnis über 10. Auf Stufe 1 und 2 rechnet das Kind in drei Schritten: bis zur 10 auffüllen, den Rest bestimmen, Ergebnis nennen (8 + 5 = 8 + 2 + 3). Zwei Zehnerfelder zeigen die Zerlegung auf Stufe 1 immer, sonst nach einem Fehler.
+
+**`quatsch`:** Ein Satz steht unter einem Bild, das Kind entscheidet „Passt“ oder „Quatsch“. Der Satz wird nicht vorgelesen; einzelne Wörter lassen sich wie bei `lesen` antippen und anhören, das zählt als Tipp. Nach einem Fehler wird der Satz vorgelesen.
+
+**`reime`:** Das Kind sucht zum genannten Wort das Bild, das sich darauf reimt. Unter jedem Bild steht das Wort, alle Wörter lassen sich vorlesen. Die Sprachausgabe spricht nur ganze Wörter.
+
+**`hunderterfeld`:** Das Kind tippt die genannte Zahl im Hunderterfeld an, auch per Pfeiltasten und Enter. Die Lücken nach der fünften Spalte und Zeile gliedern das Feld. Rückmeldung bei Fehlern: Reihe und Platz („Die 47 steht in der Reihe von 41 bis 50, auf Platz 7.“).
 
 ## 5. Lernmodell
 
@@ -174,6 +187,8 @@ Das Gewicht gesehener Inhalte wird mit einem **Zeitfaktor** für verteiltes Übe
 |---|---|---|
 | Laut-Buchstaben-Zuordnung, Wörter erlesen und schreiben (`anlaute`, `woerter`) | WWC/IES *Foundational Skills K–3* (2016/2019) | stark; Effektgröße umstritten (d ≈ 0,12–0,44) |
 | Laute und Silben heraushören und verbinden (`lautbruecke`, `silben`) | WWC/IES *Foundational Skills K–3* (2016/2019) | stark für das Bewusstsein für Sprachlaute; die konkreten Spiele sind nicht eigens untersucht |
+| Reime erkennen (`reime`) | WWC/IES *Foundational Skills K–3* (2016/2019), Bewusstsein für Sprachlaute | stark für den Bereich; das konkrete Spiel ist nicht eigens untersucht |
+| Zehnerübergang mit Zehnerfeld, Hunderterfeld, Sätze prüfen (`zehnerfeld`, `hunderterfeld`, `quatsch`) | Fachdidaktische Praxis; hier noch nicht mit Quellen belegt | offen, vor Veröffentlichung nachzutragen |
 | Zahlzerlegung und Mengen auf einen Blick erfassen (`zahlenhaus`, `blitzblick`) | Fachdidaktische Praxis; hier noch nicht mit Quellen belegt | offen, vor Veröffentlichung nachzutragen |
 | Tägliches Lesen zusammenhängender Texte (`lesen`, F-28) | ebenda; Forschung zu Lautleseverfahren | mittel |
 | Zahlenstrahl und lineare Zahlenspiele (`zahlenstrahl`, `punkte`) | WWC/IES *Assisting Students Struggling with Mathematics* (2021); Metaanalyse zu Zahlenbrettspielen (18 Studien); Siegler | gut, kurzfristige Effekte |
@@ -197,6 +212,7 @@ Die App ist auf Kinderdaten im Schulbetrieb ausgelegt. Die rechtliche Prüfung (
 - **D-04** Löschung und Auskunft sind direkt in der App möglich (F-13, F-53).
 - **D-05** Sprachausgabe erfolgt nur über den eigenen Piper-Dienst (5.5) oder die Web Speech API. Hinweis: Einige Browser reichen „Online“-Stimmen an ihren Hersteller weiter. Deshalb verwendet Biberdamm im Browser nur lokal installierte Stimmen (`localService`), auch wenn diese schlechter klingen.
 - **D-06** Geteilte Geräte: Der Service Worker speichert keine personenbezogenen Seiten. Lokal liegen nur noch nicht übertragene Spielergebnisse.
+- **D-07** Freies Spielen (F-07) verarbeitet keine personenbezogenen Daten. Die Sprachausgabe steht dann ohne Anmeldung offen; ist die Installation aus dem Internet erreichbar, kann jeder Piper nutzen (bis 300 Zeichen je Anfrage).
 
 ## 7. Sicherheit
 

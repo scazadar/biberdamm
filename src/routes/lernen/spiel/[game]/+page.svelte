@@ -16,8 +16,16 @@
   });
 </script>
 
+{#if data.guest && game.levels.length > 1}
+  <nav class="level-pick" aria-label="Stufe wählen">
+    <span>Stufe:</span>
+    {#each game.levels as label, i (i)}
+      <a class="btn" href="?stufe={i + 1}" title={label} aria-current={data.level === i + 1 ? 'page' : undefined}>{i + 1}</a>
+    {/each}
+  </nav>
+{/if}
 {#if view}
-  {#key run}
+  {#key `${run}-${data.level}`}
     <GameShell
       {game}
       {view}

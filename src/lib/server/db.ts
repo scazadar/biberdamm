@@ -124,7 +124,14 @@ export function openDb(path: string): Db {
   const db = new DatabaseSync(path);
   db.exec('PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;');
   db.exec(SCHEMA);
+  migrate(db);
   return db;
+}
+
+/** Spalten, die nach Version 1 hinzugekommen sind. */
+function migrate(db: Db) {
+  const columns = (db.prepare("SELECT name FROM pragma_table_info('school')").all() as { name: string }[]).map((c) => c.name);
+  if (!columns.includes('free_play')) db.exec('ALTER TABLE school ADD COLUMN free_play INTEGER NOT NULL DEFAULT 0');
 }
 
 let instance: Db | undefined;

@@ -21,8 +21,10 @@ const one = <T>(db: Db, sql: string, ...args: any[]) => db.prepare(sql).get(...a
 export const isSetUp = (db: Db) => !!one(db, 'SELECT 1 AS x FROM school WHERE id = 1');
 
 export function getSchool(db: Db) {
-  return one<{ name: string; retention_days: number }>(db, 'SELECT name, retention_days FROM school WHERE id = 1');
+  return one<{ name: string; retention_days: number; free_play: number }>(db, 'SELECT name, retention_days, free_play FROM school WHERE id = 1');
 }
+
+export const isFreePlay = (db: Db) => !!getSchool(db)?.free_play;
 
 export function setupSchool(db: Db, input: { school: string; username: string; displayName: string; password: string }) {
   const hash = hashPassword(input.password);

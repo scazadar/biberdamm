@@ -7,6 +7,7 @@
   onMount(() => {
     const { student, settings } = untrack(() => data);
     initAudio({ speech: settings.speech, server: settings.serverSpeech });
+    if (student.id === 0) return; // Gast: nichts zu übertragen.
     const sync = () => void syncResults(student.id);
     sync();
     window.addEventListener('online', sync);

@@ -23,6 +23,13 @@ export function requireStudent(locals: App.Locals) {
   return locals.principal;
 }
 
+/** Angemeldetes Kind oder Gast beim freien Spielen (F-07). */
+export function requireLearner(locals: App.Locals) {
+  const p = locals.principal;
+  if (p?.kind !== 'student' && p?.kind !== 'guest') error(401, 'Nicht angemeldet');
+  return p;
+}
+
 /** Fremde Klassen sind nicht von nicht vorhandenen zu unterscheiden. */
 export function requireClass(locals: App.Locals, rawId: string) {
   const p = requireUser(locals);

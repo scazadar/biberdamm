@@ -23,5 +23,9 @@ export const VIEWS: Record<string, Loader> = {
   silben: () => import('./views/Silben.svelte'),
   zahlenhaus: () => import('./views/Zahlenhaus.svelte'),
   blitzblick: () => import('./views/Blitzblick.svelte'),
+  zehnerfeld: () => import('./views/Zehnerfeld.svelte'),
+  quatsch: () => import('./views/Quatsch.svelte'),
+  reime: () => import('./views/Reime.svelte'),
+  hunderterfeld: () => import('./views/Hunderterfeld.svelte'),
   quiz: () => import('./views/Quiz.svelte')
 };

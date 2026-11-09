@@ -28,6 +28,7 @@
   function finish(attempts: Attempt[]) {
     earned = attempts.length;
     sound.fanfare();
+    if (props.studentId === 0) return; // Gast (F-07): nichts speichern.
     enqueue(localStorage, {
       studentId: props.studentId,
       savedAt: Date.now(),

@@ -5,10 +5,17 @@
 
 <div class="kid">
   <header class="kid-top">
-    <span class="name">🦫 {data.student.name}</span>
-    <span style="flex:1"></span>
-    <a class="stars" href="/lernen/album" style="text-decoration:none;color:inherit" data-testid="stars">⭐ {data.stars}</a>
-    <form method="POST" action="/abmelden"><button aria-label="Abmelden">🚪 Fertig</button></form>
+    {#if data.guest}
+      <img class="logo-inline" src="/logo-head.png" alt="" width="40" height="40" />
+      <span class="name">Biberdamm</span>
+      <span style="flex:1"></span>
+      <a class="btn small" href="/login" data-testid="staff-login">🧑‍🏫 Lehrkraft</a>
+    {:else}
+      <span class="name">🦫 {data.student.name}</span>
+      <span style="flex:1"></span>
+      <a class="stars" href="/lernen/album" style="text-decoration:none;color:inherit" data-testid="stars">⭐ {data.stars}</a>
+      <form method="POST" action="/abmelden"><button aria-label="Abmelden">🚪 Fertig</button></form>
+    {/if}
   </header>
   <main class="kid-main">
     {#if data.assignments.length}
@@ -37,7 +44,7 @@
       {#each WORLDS as w (w.id)}
         <a class="tile" href="/lernen/welt/{w.id}"><span class="icon">{w.icon}</span>{w.title}</a>
       {/each}
-      <a class="tile" href="/lernen/album"><span class="icon">📒</span>Mein Album</a>
+      {#if !data.guest}<a class="tile" href="/lernen/album"><span class="icon">📒</span>Mein Album</a>{/if}
     </div>
   </main>
 </div>

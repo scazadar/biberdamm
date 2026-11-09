@@ -138,6 +138,20 @@ const solvers: Record<string, (page: Page) => Promise<void>> = {
     const n = await p.getByTestId('flash').getAttribute('data-count');
     await p.locator('.choice', { hasText: new RegExp(`^${n}$`) }).click({ timeout: 1000 });
   },
+  zehnerfeld: async (p) => {
+    const n = await p.getByTestId('bridge').getAttribute('data-answer');
+    await p.locator('.choice', { hasText: new RegExp(`^${n}$`) }).click({ timeout: 1000 });
+  },
+  quatsch: async (p) => {
+    await p.locator('[data-right="true"]').first().click({ timeout: 1000 });
+  },
+  reime: async (p) => {
+    await p.locator('[data-right="true"]').first().click({ timeout: 1000 });
+  },
+  hunderterfeld: async (p) => {
+    const n = await p.getByTestId('hundred').getAttribute('data-target');
+    await p.locator(`[data-n="${n}"]`).click({ timeout: 1000 });
+  },
   quiz: async (p) => {
     await p.locator('[data-right="true"]').first().click({ timeout: 1000 });
   }
@@ -413,7 +427,7 @@ test('neue Spiele laufen auch auf den Stufen 2 und 3', async ({ page, browser })
   test.setTimeout(600_000);
   await login(page, ADMIN.user, ADMIN.pass);
   await page.goto(`${classUrl}/aufgaben`);
-  const tasks = ['lautbruecke', 'silben', 'zahlenhaus', 'blitzblick'].flatMap((game) => [2, 3].map((level) => ({ game, level })));
+  const tasks = ['lautbruecke', 'silben', 'zahlenhaus', 'blitzblick', 'zehnerfeld', 'quatsch', 'reime', 'hunderterfeld'].flatMap((game) => [2, 3].map((level) => ({ game, level })));
   for (const { game, level } of tasks) {
     const before = await page.getByTestId('assignment').count();
     await page.getByLabel('Spiel').selectOption(game);
@@ -436,6 +450,48 @@ test('neue Spiele laufen auch auf den Stufen 2 und 3', async ({ page, browser })
     });
   }
   expect(problems).toEqual([]);
+  await context.close();
+});
+
+test('freies Spielen: ohne Anmeldung direkt zu den Spielen, nichts wird gespeichert', async ({ page, browser }) => {
+  const setFreePlay = async (on: boolean) => {
+    await page.goto('/admin/schule');
+    await page.getByLabel('Freies Spielen ohne Anmeldung').setChecked(on);
+    await page.getByRole('button', { name: 'Speichern' }).click();
+    await expect(page.getByText('Gespeichert.')).toBeVisible();
+  };
+  await login(page, ADMIN.user, ADMIN.pass);
+  await setFreePlay(true);
+
+  const context = await newChildContext(browser);
+  const guest = await context.newPage();
+  const results: string[] = [];
+  guest.on('request', (r) => {
+    if (r.url().includes('/api/ergebnisse')) results.push(r.url());
+  });
+  await guest.goto('/');
+  await expect(guest).toHaveURL(/\/lernen$/);
+  await expect(guest.getByTestId('staff-login')).toBeVisible();
+  await expect(guest.getByText('Mein Album')).toHaveCount(0);
+  await guest.goto('/kind');
+  await expect(guest).toHaveURL(/\/lernen$/);
+
+  await guest.goto('/lernen/spiel/zaehlen?stufe=2');
+  await expect(guest.getByRole('link', { name: '2', exact: true })).toHaveAttribute('aria-current', 'page');
+  await playRound(guest, 'zaehlen');
+  await guest.waitForLoadState('networkidle');
+  expect(results).toEqual([]);
+  expect(await guest.evaluate(() => localStorage.getItem('biberdamm.ergebnisse'))).toBeNull();
+  await guest.goto('/lernen/album');
+  await expect(guest).toHaveURL(/\/lernen$/);
+
+  // Lehrkraft-Bereich bleibt geschützt.
+  await guest.goto('/lehrkraft');
+  await expect(guest).toHaveURL(/\/login$/);
+
+  await setFreePlay(false);
+  await guest.goto('/lernen');
+  await expect(guest).toHaveURL(/\/kind$/);
   await context.close();
 });
 

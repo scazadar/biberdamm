@@ -53,7 +53,9 @@ const sha256 = (s: string) => createHash('sha256').update(s).digest('hex');
 
 export type Principal =
   | { kind: 'user'; id: number; username: string; displayName: string; role: 'admin' | 'teacher'; mustChangePassword: boolean }
-  | { kind: 'student'; id: number; displayName: string; classId: number };
+  | { kind: 'student'; id: number; displayName: string; classId: number }
+  /** Freies Spielen (F-07): ohne Anmeldung, es wird nichts gespeichert. */
+  | { kind: 'guest' };
 
 export function createSession(db: Db, subject: { userId?: number; studentId?: number }, now = Date.now()): string {
   const token = randomBytes(32).toString('base64url');
