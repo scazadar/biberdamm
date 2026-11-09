@@ -1,0 +1,53 @@
+# Start: docker compose up -d --build
+# Eigene Adresse: BIBERDAMM_DOMAIN=lernen.meine-schule.de in einer Datei .env setzen.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      ORIGIN: https://${BIBERDAMM_DOMAIN:-localhost}
+      ADDRESS_HEADER: x-forwarded-for
+      XFF_DEPTH: "1"
+      BIBERDAMM_TTS_URL: http://tts:5000
+    volumes:
+      - biberdamm-data:/data
+    networks: [web, speech]
+    depends_on: [tts]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/login',{redirect:'manual'}).then(r=>process.exit(r.status<500?0:1),()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+
+  # Das Netz "speech" hat keinen Internetzugang: Texte können den Server nicht verlassen.
+  tts:
+    build: ./docker/piper
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    networks: [speech]
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      BIBERDAMM_DOMAIN: ${BIBERDAMM_DOMAIN:-localhost}
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    networks: [web]
+    depends_on: [app]
+
+networks:
+  web:
+  speech:
+    internal: true
+
+volumes:
+  biberdamm-data:
+  caddy-data:
+  caddy-config:

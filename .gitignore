@@ -1,0 +1,10 @@
+node_modules
+build
+.svelte-kit
+data
+test-results
+playwright-report
+.env
+.e2e-data
+backups
+*.tmp

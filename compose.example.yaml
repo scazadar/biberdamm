@@ -1,0 +1,49 @@
+# Beispiel für den Betrieb mit den fertigen Images, ohne Quellcode:
+#   1. Diese Datei als compose.yaml in einen leeren Ordner legen.
+#   2. Datei .env anlegen mit: BIBERDAMM_DOMAIN=lernen.meine-schule.de
+#   3. docker compose up -d   (oder: podman compose up -d)
+# Ohne .env läuft alles unter https://localhost mit Testzertifikat.
+services:
+  app:
+    image: ghcr.io/scazadar/biberdamm:latest
+    restart: unless-stopped
+    environment:
+      ORIGIN: https://${BIBERDAMM_DOMAIN:-localhost}
+      ADDRESS_HEADER: x-forwarded-for
+      XFF_DEPTH: "1"
+      BIBERDAMM_TTS_URL: http://tts:5000
+    volumes:
+      - biberdamm-data:/data
+    networks: [web, speech]
+    depends_on: [tts]
+
+  # Das Netz "speech" hat keinen Internetzugang: Texte können den Server nicht verlassen.
+  tts:
+    image: ghcr.io/scazadar/biberdamm-tts:latest
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    networks: [speech]
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    command: caddy reverse-proxy --from ${BIBERDAMM_DOMAIN:-localhost} --to app:3000
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    networks: [web]
+    depends_on: [app]
+
+networks:
+  web:
+  speech:
+    internal: true
+
+volumes:
+  biberdamm-data:
+  caddy-data:
+  caddy-config:
