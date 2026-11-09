@@ -5,7 +5,7 @@
 <main class="kid">
   <div class="kid-main" style="text-align:center;padding-top:2rem">
     {#if data.open}
-      <h1>🦫 Wer bist du?</h1>
+      <h1><img class="logo-inline" src="/logo-head.png" alt="" width="40" height="40" /> Wer bist du?</h1>
       <p class="muted">Klasse {data.className}</p>
       <div class="tile-grid">
         {#each data.students as s (s.id)}

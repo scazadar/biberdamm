@@ -86,7 +86,7 @@
   </header>
 
   <div class="bruno">
-    <button type="button" onclick={() => ctx.repeat()} aria-label="Nochmal vorlesen" title="Nochmal hören">🦫</button>
+    <button type="button" onclick={() => ctx.repeat()} aria-label="Nochmal vorlesen" title="Nochmal hören"><img class="logo-bruno" src="/logo-head.png" alt="" width="64" height="64" /></button>
     <div class="bubble" aria-live="polite" data-testid="bubble">{ctx.bubble}</div>
   </div>
 

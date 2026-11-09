@@ -54,6 +54,10 @@ label > input, label > select, label > textarea { margin-top: .25rem; font-weigh
 .error { background: var(--bad-bg); color: var(--bad); padding: .6rem .9rem; border-radius: 10px; margin-bottom: .8rem; }
 .notice { background: var(--ok-bg); color: var(--ok); padding: .6rem .9rem; border-radius: 10px; margin-bottom: .8rem; }
 
+.logo { display: block; margin: .5rem auto; border-radius: 24px; }
+.logo-inline { width: 1.6em; height: 1.6em; border-radius: 50%; vertical-align: middle; }
+.logo-bruno { display: block; width: 4rem; height: 4rem; border-radius: 50%; }
+
 .source-link { height: 2.75rem; display: flex; align-items: center; justify-content: center; }
 .source-link a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .75rem; color: var(--muted); }
 @media print { .source-link { display: none; } }

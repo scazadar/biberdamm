@@ -1,4 +1,6 @@
-# 🦫 Biberdamm
+<img src="static/logo.png" alt="Biberdamm-Logo" width="160" />
+
+# Biberdamm
 
 Lernplattform für Vorschule und Klasse 1–2 zum Selbst-Hosten an Schulen. Die Fachanforderungen stehen in [docs/SPEZIFIKATION.md](docs/SPEZIFIKATION.md).
 

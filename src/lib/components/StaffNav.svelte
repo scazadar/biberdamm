@@ -4,7 +4,7 @@
 
 <nav class="admin-nav no-print" aria-label="Hauptnavigation">
   <div class="inner">
-    <a class="brand" href="/lehrkraft">🦫 Biberdamm</a>
+    <a class="brand" href="/lehrkraft"><img class="logo-inline" src="/logo-head.png" alt="" width="40" height="40" /> Biberdamm</a>
     <a href="/lehrkraft">Klassen</a>
     <a href="/lehrkraft/quiz">Quizze</a>
     <a href="/lehrkraft/spiele">Spiele</a>

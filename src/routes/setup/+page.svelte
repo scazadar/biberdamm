@@ -3,7 +3,7 @@
 </script>
 
 <main class="narrow">
-  <h1>🦫 Biberdamm einrichten</h1>
+  <h1><img class="logo-inline" src="/logo-head.png" alt="" width="40" height="40" /> Biberdamm einrichten</h1>
   <p class="muted">Lege die Schule und das Konto der Schulverwaltung an.</p>
   {#if form?.error}<p class="error" role="alert">{form.error}</p>{/if}
   <form method="POST" class="card">

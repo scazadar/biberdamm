@@ -1,6 +1,6 @@
 <main class="kid">
   <div class="narrow" style="text-align:center">
-    <div style="font-size:4.5rem">🦫</div>
+    <img class="logo" src="/logo.png" alt="Biberdamm" width="160" height="160" />
     <h1>Wie heißt der Klassencode?</h1>
     <form method="POST" class="card">
       <label>Klassencode
