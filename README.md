@@ -50,6 +50,7 @@ Der Server muss hinter einem HTTPS-Reverse-Proxy laufen (z. B. nginx oder Caddy)
 | `PORT` | Port des Servers | `3000` |
 | `ADDRESS_HEADER`, `XFF_DEPTH` | Echte Client-Adresse hinter dem Proxy, nötig für die Login-Begrenzung | – |
 | `BIBERDAMM_TTS_URL` | Adresse des Piper-Dienstes; ohne Angabe nur Gerätestimmen | – |
+| `BIBERDAMM_GUEST_SPEECH_PER_MINUTE` | Neue Sätze je Minute und Adresse für Gäste beim freien Spielen; `0` = Gäste nur mit Gerätestimme | `60` |
 | `BODY_SIZE_LIMIT` | Maximale Anfragegröße | `512K` |
 
 **Sicherung:** `npm run backup -- /pfad/zum/ordner` erstellt im laufenden Betrieb eine konsistente Kopie der Datenbank. Die Sicherungen enthalten Kinderdaten und müssen entsprechend geschützt werden. Löschfristen greifen in alten Sicherungen nicht, daher sollten auch diese regelmäßig entfernt werden.

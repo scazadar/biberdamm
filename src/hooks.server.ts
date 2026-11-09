@@ -36,7 +36,8 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (under('/api/ergebnisse') && p?.kind !== 'student') {
     return new Response(JSON.stringify({ error: 'unauthorized' }), { status: 401, headers: { 'content-type': 'application/json' } });
   }
-  if (under('/api/sprache') && p?.kind !== 'student' && p?.kind !== 'guest') {
+  // Lehrkräfte nutzen die Stimme für die Seite „Inhalte prüfen“.
+  if (under('/api/sprache') && !p) {
     return new Response(JSON.stringify({ error: 'unauthorized' }), { status: 401, headers: { 'content-type': 'application/json' } });
   }
   if (under('/lernen') && p?.kind !== 'student' && p?.kind !== 'guest') redirect(303, '/kind');

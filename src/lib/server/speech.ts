@@ -13,11 +13,19 @@ const TIMEOUT = 10_000;
 /** Etwas langsamer als die Standardgeschwindigkeit, weil die Hörer Kinder sind. */
 const LENGTH_SCALE = 1.1;
 
+/** Mehr wartende Aufträge lehnt der Dienst ab, statt sie endlos zu stapeln. */
+const MAX_WAITING = 30;
+
 export interface SpeechOptions {
   url: string;
   dir: string;
   fetcher?: typeof fetch;
+  /** Wird nur vor einer echten Neuberechnung gefragt; `false` lehnt ab. Zwischengespeichertes zählt nicht. */
+  allowNew?: () => boolean;
 }
+
+/** `busy`: zu viele Aufträge; `limited`: Kontingent des Aufrufers erschöpft; `null`: Dienst nicht verfügbar. */
+export type SpeechResult = Uint8Array | 'busy' | 'limited' | null;
 
 const inFlight = new Map<string, Promise<Uint8Array | null>>();
 const waiting: (() => void)[] = [];
@@ -62,8 +70,8 @@ async function generate(text: string, file: string, o: SpeechOptions): Promise<U
   return audio;
 }
 
-/** Liefert WAV-Daten oder `null`, wenn der Dienst nicht verfügbar ist. */
-export async function synthesize(text: string, o: SpeechOptions): Promise<Uint8Array | null> {
+/** Liefert WAV-Daten, sonst den Grund der Ablehnung (siehe `SpeechResult`). */
+export async function synthesize(text: string, o: SpeechOptions): Promise<SpeechResult> {
   const key = createHash('sha256').update(`${LENGTH_SCALE}\n${text}`).digest('hex');
   const file = join(o.dir, `${key}.wav`);
   try {
@@ -73,6 +81,8 @@ export async function synthesize(text: string, o: SpeechOptions): Promise<Uint8A
   }
   let job = inFlight.get(key);
   if (!job) {
+    if (running >= MAX_PARALLEL && waiting.length >= MAX_WAITING) return 'busy';
+    if (o.allowNew && !o.allowNew()) return 'limited';
     job = slot(() => generate(text, file, o))
       .catch(() => null)
       .finally(() => inFlight.delete(key));
@@ -95,6 +105,40 @@ export function purgeSpeechCache(dir: string, maxAgeDays = 30, now = Date.now())
   }
   cacheFiles = undefined;
 }
+
+/** Zählt Neuberechnungen je Schlüssel (z. B. Adresse) in festen Minutenfenstern. */
+export class RateLimit {
+  private readonly windows = new Map<string, { start: number; count: number }>();
+
+  constructor(
+    readonly perMinute: number,
+    private readonly maxKeys = 10_000
+  ) {}
+
+  take(key: string, now = Date.now()): boolean {
+    let w = this.windows.get(key);
+    if (!w || now - w.start >= 60_000) {
+      if (this.windows.size >= this.maxKeys) this.prune(now);
+      w = { start: now, count: 0 };
+      this.windows.set(key, w);
+    }
+    if (w.count >= this.perMinute) return false;
+    w.count++;
+    return true;
+  }
+
+  private prune(now: number) {
+    for (const [k, w] of this.windows) if (now - w.start >= 60_000) this.windows.delete(k);
+    // Bei einer Flut verschiedener Adressen lieber alles vergessen als unbegrenzt wachsen.
+    if (this.windows.size >= this.maxKeys) this.windows.clear();
+  }
+}
+
+/** Neue Sätze je Minute und Adresse für Gäste beim freien Spielen (F-07); 0 schaltet die Sprachausgabe für Gäste ab. */
+export const guestSpeechPerMinute = () => {
+  const n = Number(process.env.BIBERDAMM_GUEST_SPEECH_PER_MINUTE ?? 60);
+  return Number.isInteger(n) && n >= 0 ? n : 60;
+};
 
 export const speechUrl = () => process.env.BIBERDAMM_TTS_URL || null;
 export const speechCacheDir = () => join(dirname(resolve(process.env.BIBERDAMM_DB ?? 'data/biberdamm.db')), 'sprache');

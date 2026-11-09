@@ -213,6 +213,14 @@ test('Login-Karten enthalten QR-Code und Bilder', async ({ page }) => {
   await expect(page.locator('.login-card svg').first()).toBeVisible();
 });
 
+test('Inhalte prüfen listet Laute und Texte zum Anhören', async ({ page }) => {
+  await login(page, ADMIN.user, ADMIN.pass);
+  await page.getByRole('link', { name: 'Inhalte' }).click();
+  await expect(page.getByRole('heading', { name: 'Inhalte prüfen' })).toBeVisible();
+  await expect(page.getByTestId('sounds').getByRole('button')).toHaveCount(18);
+  await expect(page.getByRole('button', { name: 'Anhören: Der Hund ist im Garten. Er sucht den Ball.' })).toBeVisible();
+});
+
 test('falsches Bilderpasswort wird abgewiesen, geschlossene Klasse zeigt keine Namen', async ({ page, browser }) => {
   await page.goto(`/kind/${code}`);
   await page.getByRole('link', { name: 'Tom B.', exact: true }).click();

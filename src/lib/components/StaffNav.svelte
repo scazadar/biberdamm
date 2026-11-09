@@ -8,6 +8,7 @@
     <a href="/lehrkraft">Klassen</a>
     <a href="/lehrkraft/quiz">Quizze</a>
     <a href="/lehrkraft/spiele">Spiele</a>
+    <a href="/lehrkraft/inhalte">Inhalte</a>
     {#if user.role === 'admin'}<a href="/admin">Verwaltung</a>{/if}
     <span class="push small">{user.displayName}</span>
     <a href="/lehrkraft/passwort" class="small">Passwort</a>

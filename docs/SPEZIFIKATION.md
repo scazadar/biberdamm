@@ -75,6 +75,7 @@ Eine Installation bedient genau eine Schule. Das hält Betrieb und Datenschutz e
 - **F-30** Aufgabe = Spiel + Stufe + Anzahl Runden + optionales Fälligkeitsdatum, gilt für die Klasse.
 - **F-31** Die Lehrkraft sieht je Aufgabe, welche Kinder fertig sind.
 - **F-32** Eigene Quizze: Frage, Symbol, 2–4 Antworten, Erklärung. Quizze sind nur über Aufgaben spielbar.
+- **F-33** Die Seite „Inhalte prüfen“ zeigt Lehrkräften alle Wörter, Laute, Silben, Reime, Sätze und Lesetexte der Lese- und Sprachspiele, jeweils zum Anhören mit derselben Stimme wie bei den Kindern.
 
 ### 3.5 Fortschritt
 
@@ -200,7 +201,7 @@ Die Abstände und Faktoren in 5.3 sind Designentscheidungen und nicht aus Studie
 
 ### 5.5 Sprachausgabe
 
-Ist `BIBERDAMM_TTS_URL` gesetzt, spricht eine neuronale Stimme (Piper) aus einem Dienst im eigenen Netz. `/api/sprache` steht nur angemeldeten Kindern offen, nimmt bis zu 300 Zeichen an und speichert jeden Satz 30 Tage zwischen. Fällt der Dienst aus, spricht für 60 Sekunden die beste lokale Gerätestimme. Texte verlassen die Schulinstallation nicht.
+Ist `BIBERDAMM_TTS_URL` gesetzt, spricht eine neuronale Stimme (Piper) aus einem Dienst im eigenen Netz. `/api/sprache` steht angemeldeten Kindern, Lehrkräften und beim freien Spielen (F-07) Gästen offen, nimmt bis zu 300 Zeichen an und speichert jeden Satz 30 Tage zwischen. Piper rechnet höchstens 3 Sätze gleichzeitig; warten schon 30 weitere, wird abgelehnt. Gäste dürfen je Adresse 60 neue Sätze pro Minute erzeugen (`BIBERDAMM_GUEST_SPEECH_PER_MINUTE`), Sätze aus dem Zwischenspeicher zählen nicht. Bei Ablehnung spricht wie bei einem Ausfall die Gerätestimme. Fällt der Dienst aus, spricht für 60 Sekunden die beste lokale Gerätestimme. Texte verlassen die Schulinstallation nicht.
 
 ## 6. Datenschutz
 
@@ -212,7 +213,7 @@ Die App ist auf Kinderdaten im Schulbetrieb ausgelegt. Die rechtliche Prüfung (
 - **D-04** Löschung und Auskunft sind direkt in der App möglich (F-13, F-53).
 - **D-05** Sprachausgabe erfolgt nur über den eigenen Piper-Dienst (5.5) oder die Web Speech API. Hinweis: Einige Browser reichen „Online“-Stimmen an ihren Hersteller weiter. Deshalb verwendet Biberdamm im Browser nur lokal installierte Stimmen (`localService`), auch wenn diese schlechter klingen.
 - **D-06** Geteilte Geräte: Der Service Worker speichert keine personenbezogenen Seiten. Lokal liegen nur noch nicht übertragene Spielergebnisse.
-- **D-07** Freies Spielen (F-07) verarbeitet keine personenbezogenen Daten. Die Sprachausgabe steht dann ohne Anmeldung offen; ist die Installation aus dem Internet erreichbar, kann jeder Piper nutzen (bis 300 Zeichen je Anfrage).
+- **D-07** Freies Spielen (F-07) verarbeitet keine personenbezogenen Daten. Die Sprachausgabe steht dann ohne Anmeldung offen; ist die Installation aus dem Internet erreichbar, kann jeder Piper nutzen, begrenzt nach 5.5.
 
 ## 7. Sicherheit
 

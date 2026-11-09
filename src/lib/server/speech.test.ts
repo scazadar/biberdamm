@@ -2,7 +2,7 @@ import { mkdtempSync, readdirSync, rmSync, utimesSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { purgeSpeechCache, synthesize } from './speech';
+import { RateLimit, purgeSpeechCache, synthesize } from './speech';
 
 const WAV = new Uint8Array(64);
 WAV.set([0x52, 0x49, 0x46, 0x46]);
@@ -44,6 +44,36 @@ describe('Sprachdienst', () => {
     const notAudio = fake(() => new Response('<html>'.repeat(20)));
     expect(await synthesize('C.', notAudio.options)).toBeNull();
     expect(readdirSync(dir)).toEqual([]);
+  });
+
+  it('fragt das Kontingent nur bei Neuberechnungen', async () => {
+    const { calls, options } = fake();
+    let asked = 0;
+    const allowNew = () => ++asked <= 1;
+    expect(await synthesize('Eins.', { ...options, allowNew })).not.toBeNull();
+    expect(await synthesize('Eins.', { ...options, allowNew })).toBeInstanceOf(Uint8Array);
+    expect(await synthesize('Zwei.', { ...options, allowNew })).toBe('limited');
+    expect(asked).toBe(2);
+    expect(calls).toEqual(['Eins.']);
+  });
+
+  it('lehnt bei voller Warteschlange ab, statt zu stapeln', async () => {
+    let release!: () => void;
+    const gate = new Promise<void>((r) => (release = r));
+    const { options } = fake(async () => {
+      await gate;
+      return new Response(WAV);
+    });
+    const jobs = Array.from({ length: 33 }, (_, i) => synthesize(`Satz ${i}.`, options));
+    expect(await synthesize('Einer zu viel.', options)).toBe('busy');
+    release();
+    expect((await Promise.all(jobs)).every((r) => r instanceof Uint8Array)).toBe(true);
+  });
+
+  it('begrenzt je Schlüssel und Minute', () => {
+    const limit = new RateLimit(2);
+    expect([limit.take('a', 0), limit.take('a', 1), limit.take('a', 2), limit.take('b', 3)]).toEqual([true, true, false, true]);
+    expect(limit.take('a', 60_000)).toBe(true);
   });
 
   it('löscht nur alte Dateien', async () => {
