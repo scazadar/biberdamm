@@ -110,11 +110,23 @@ Motorik: T = Tastatur, K = Klick/Tippen, Z = Ziehen, M = Malen.
 | `woerter` *(neu)* | Wörter bauen | Rechtschreibung | K T | kurze Wörter / alle Wörter / mit Extrabuchstaben |
 | `zahlenstrahl` *(neu)* | Zahlenstrahl | Größenvorstellung von Zahlen | Z K T | bis 10 / bis 20 / bis 100 in Fünferschritten |
 | `lesen` *(neu)* | Lesezeit | Texte lesen und verstehen | K | 1–2 Sätze / 3 Sätze / kurze Geschichten (je 3 Texte) |
+| `lautbruecke` *(neu)* | Lautbrücke | Laute zu Wörtern verbinden | K T | 2–3 Laute, 2 Bilder / 3–4 Laute, 3 Bilder / 4–5 Laute, 4 Bilder |
+| `silben` *(neu)* | Silbenklatschen | Silben erkennen | K T | 1–2 Silben zählen / 2–3 Silben zählen / Wort aus Silben zusammensetzen |
+| `zahlenhaus` *(neu)* | Zahlenhaus | Zahlzerlegung | K T | Zahlen bis 5 / bis 10 / bis 20 |
+| `blitzblick` *(neu)* | Blitzblick | Mengen auf einen Blick erfassen | K T | bis 5 Punkte, geordnet / bis 10 im Zehnerfeld / bis 20 in zwei Zehnerfeldern |
 | `quiz` *(neu)* | Eigenes Quiz | von der Lehrkraft | K T | keine Stufen |
 
 **`zahlenstrahl`:** Das Kind bringt Bruno an die genannte Zahl. Nur Eckpunkte sind beschriftet, damit die Lage geschätzt und nicht abgelesen wird. Rückmeldung bei Fehlern: genannte Position und Richtung („Das ist die 6. Die 7 liegt weiter rechts.“).
 
 **`lesen`:** Das Kind liest den Text selbst laut und beantwortet danach eine Frage; der Text bleibt sichtbar. Der Text wird nicht als Ganzes vorgelesen. Abweichend von B-02 gilt: Einzelne Wörter lassen sich antippen und anhören, das zählt als Tipp. Ob wirklich laut gelesen wurde, kann die App nicht prüfen; Lautlese-Tandems bleiben Sache des Unterrichts.
+
+**`lautbruecke`:** Bruno spricht ein Wort gedehnt in einzelnen Lauten vor, das Kind tippt das passende Bild an. Das Vorsprechen lässt sich beliebig oft wiederholen. Wörter stehen in einer geprüften Liste mit Lautfolge und nutzen lautgetreue Wörter; ein Laut ist nicht dasselbe wie ein Buchstabenname („mmm“, nicht „em“). Die Liste enthält nur dehnbare Laute, keine Verschlusslaute wie T oder K. Die Stimme erhält die Laute in gedehnter Schreibweise („Mmm.“). *Offen:* Diese Aussprache ist nach Dauer geprüft, aber noch nicht abgehört. Klingt sie unsauber, ersetzen vorab erzeugte oder eingesprochene Audiodateien die Schreibweise.
+
+**`silben`:** Das Kind hört ein Wort, tippt je Silbe einmal auf die Trommel und bestätigt. Auf Stufe 3 setzt es Wortkarten aus Silben richtig zusammen. Die Silbentrennung steht geprüft in der Wortliste und wird nicht automatisch berechnet. Rückmeldung bei Fehlern: Das Wort wird silbenweise vorgesprochen.
+
+**`zahlenhaus`:** In jedem Stockwerk steht eine Zerlegung der Dachzahl, das Kind ergänzt die fehlende Zahl (7 = 3 + ?). Bildpunkte in zwei Farben zeigen die Zerlegung als Hilfe. Rückmeldung bei Fehlern: Die Punkte werden gezeigt und die Summe genannt („3 und 5 sind 8. Wir brauchen 7.“).
+
+**`blitzblick`:** Eine Menge erscheint kurz, das Kind wählt danach die Anzahl aus. Die Anzeigedauer beträgt je nach Stufe 2 / 1,5 / 1 Sekunde und lässt sich in den Klasseneinstellungen nicht verkürzen. B-06 bleibt gewahrt: Für die Antwort gibt es kein Zeitlimit, und „Noch mal zeigen“ ist jederzeit möglich, zählt aber als Tipp. Die Menge erscheint und verschwindet ohne Animation. Rückmeldung bei Fehlern: Die Menge bleibt stehen und wird in Gruppen gezeigt („Hier sind 5 und noch 2, das sind 7.“).
 
 ## 5. Lernmodell
 
@@ -161,6 +173,8 @@ Das Gewicht gesehener Inhalte wird mit einem **Zeitfaktor** für verteiltes Übe
 | Entscheidung | Beleg | Stand der Belege |
 |---|---|---|
 | Laut-Buchstaben-Zuordnung, Wörter erlesen und schreiben (`anlaute`, `woerter`) | WWC/IES *Foundational Skills K–3* (2016/2019) | stark; Effektgröße umstritten (d ≈ 0,12–0,44) |
+| Laute und Silben heraushören und verbinden (`lautbruecke`, `silben`) | WWC/IES *Foundational Skills K–3* (2016/2019) | stark für das Bewusstsein für Sprachlaute; die konkreten Spiele sind nicht eigens untersucht |
+| Zahlzerlegung und Mengen auf einen Blick erfassen (`zahlenhaus`, `blitzblick`) | Fachdidaktische Praxis; hier noch nicht mit Quellen belegt | offen, vor Veröffentlichung nachzutragen |
 | Tägliches Lesen zusammenhängender Texte (`lesen`, F-28) | ebenda; Forschung zu Lautleseverfahren | mittel |
 | Zahlenstrahl und lineare Zahlenspiele (`zahlenstrahl`, `punkte`) | WWC/IES *Assisting Students Struggling with Mathematics* (2021); Metaanalyse zu Zahlenbrettspielen (18 Studien); Siegler | gut, kurzfristige Effekte |
 | Bildliche Darstellungen (`rechnen`, Stufe 1) | WWC/IES 2021; Carbonneau u. a. 2013 | klein bis mittel |
@@ -262,4 +276,4 @@ src/routes/lehrkraft, /admin, /api
 4. Unterbrochene Verbindung: Eine beendete Runde wird nachträglich genau einmal übertragen und nie einem anderen Kind zugerechnet.
 5. Löschen eines Kindes entfernt alle zugehörigen Datensätze.
 6. Das Ablaufprotokoll im Browser zeigt keine Anfragen an fremde Server.
-7. Alle 14 Spiele lassen sich starten und beenden.
+7. Alle Spiele des Katalogs (Abschnitt 4), die nicht als *geplant* markiert sind, lassen sich starten und beenden.

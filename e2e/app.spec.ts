@@ -115,6 +115,29 @@ const solvers: Record<string, (page: Page) => Promise<void>> = {
     if (await done.isVisible()) await done.click();
     await p.locator('[data-right="true"]').first().click({ timeout: 1000 });
   },
+  lautbruecke: async (p) => {
+    await p.locator('[data-right="true"]').first().click({ timeout: 1000 });
+  },
+  silben: async (p) => {
+    if (await p.getByTestId('syllables').isVisible()) {
+      for (const s of (await p.getByTestId('syllables').getAttribute('data-parts'))!.split('|')) {
+        await p.locator(`[data-syllable="${s}"]:not([disabled])`).first().click({ timeout: 1000 });
+      }
+      return;
+    }
+    const taps = p.getByTestId('taps');
+    const [target, count] = await Promise.all(['data-target', 'data-count'].map(async (a) => Number(await taps.getAttribute(a))));
+    for (let i = count; i < target; i++) await p.getByTestId('drum').click({ timeout: 1000 });
+    await p.getByTestId('confirm').click({ timeout: 1000 });
+  },
+  zahlenhaus: async (p) => {
+    const n = await p.getByTestId('house').getAttribute('data-missing');
+    await p.locator('.choice', { hasText: new RegExp(`^${n}$`) }).click({ timeout: 1000 });
+  },
+  blitzblick: async (p) => {
+    const n = await p.getByTestId('flash').getAttribute('data-count');
+    await p.locator('.choice', { hasText: new RegExp(`^${n}$`) }).click({ timeout: 1000 });
+  },
   quiz: async (p) => {
     await p.locator('[data-right="true"]').first().click({ timeout: 1000 });
   }
@@ -384,6 +407,36 @@ test('fremde Lehrkraft kommt nicht an die Klasse; Startpasswort muss geändert w
   await context.close();
   await page.goto(classUrl);
   await expect(page.locator('tr[data-student]')).toHaveCount(3);
+});
+
+test('neue Spiele laufen auch auf den Stufen 2 und 3', async ({ page, browser }) => {
+  test.setTimeout(600_000);
+  await login(page, ADMIN.user, ADMIN.pass);
+  await page.goto(`${classUrl}/aufgaben`);
+  const tasks = ['lautbruecke', 'silben', 'zahlenhaus', 'blitzblick'].flatMap((game) => [2, 3].map((level) => ({ game, level })));
+  for (const { game, level } of tasks) {
+    const before = await page.getByTestId('assignment').count();
+    await page.getByLabel('Spiel').selectOption(game);
+    await page.getByLabel('Stufe').selectOption({ index: level - 1 });
+    await page.getByRole('button', { name: 'Aufgabe geben' }).click();
+    await expect(page.getByTestId('assignment')).toHaveCount(before + 1);
+  }
+
+  const context = await newChildContext(browser);
+  const child = await context.newPage();
+  const problems: string[] = [];
+  child.on('pageerror', (e) => problems.push(e.message));
+  await childLogin(child, 'Mia K.', miaPictures);
+  for (const { game, level } of tasks) {
+    await test.step(`${game} Stufe ${level}`, async () => {
+      await child.goto('/lernen');
+      await child.locator(`a[href^="/lernen/spiel/${game}?"]`).first().click();
+      await playRound(child, game);
+      await child.waitForLoadState('networkidle');
+    });
+  }
+  expect(problems).toEqual([]);
+  await context.close();
 });
 
 test('Löschen eines Kindes entfernt es aus der Klasse', async ({ page }) => {

@@ -206,6 +206,23 @@ caption { text-align: left; font-weight: 600; padding-bottom: .4rem; }
 .numline .label { position: absolute; top: 5.1rem; font-size: 1.3rem; font-weight: 800; transform: translateX(-50%); }
 .numline .marker { position: absolute; top: .6rem; font-size: 2.6rem; line-height: 1; transform: translateX(-50%); pointer-events: none; }
 .numline-controls { display: flex; gap: .7rem; }
+.dot { display: block; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--brand); }
+.dot.second { background: var(--accent); }
+.typed { font-size: 2rem; font-weight: 800; }
+.house { width: min(16rem, 100%); }
+.roof { display: flex; align-items: flex-end; justify-content: center; height: 6rem; padding-bottom: .3rem; clip-path: polygon(50% 0, 100% 100%, 0 100%); background: var(--brand); color: #fff; font-size: 2rem; font-weight: 800; }
+.floor { display: grid; grid-template-columns: 1fr 1fr; background: #fff; border: 2px solid var(--line); border-top: none; font-size: 1.9rem; font-weight: 800; text-align: center; }
+.floor span { min-height: 3.2rem; padding: .2rem; }
+.floor span + span { border-left: 2px solid var(--line); }
+.floor.active { background: var(--warn-bg); }
+.house-dots, .taps { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; max-width: 20rem; }
+.taps { min-height: 1.5rem; }
+.flash { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; min-height: 8rem; }
+.dice { display: grid; grid-template-columns: repeat(3, 3rem); grid-auto-rows: 3rem; background: #fff; border: 2px solid var(--line); border-radius: 16px; padding: .4rem; }
+.tenframe { display: grid; grid-template-columns: repeat(5, 3rem); grid-auto-rows: 3rem; background: #fff; border: 1px solid var(--muted); }
+.dice > div, .tenframe > div { display: grid; place-items: center; }
+.tenframe > div { border: 1px solid var(--muted); }
+.syllable-slots span { width: auto; min-width: 4.5rem; padding: 0 .4rem; }
 
 /* Lesezeit */
 .reading { max-width: 42rem; background: #fff; border: 2px solid var(--line); border-radius: 18px; padding: 1rem 1.2rem; font-size: 1.7rem; line-height: 2.8rem; }

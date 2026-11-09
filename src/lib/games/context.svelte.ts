@@ -44,6 +44,7 @@ export class GameContext {
   private readonly used = new Set<string>();
   private readonly history: Record<string, ItemHistory>;
   private readonly onFinish: (a: Attempt[]) => void;
+  private spoken = '';
   private last: string | undefined;
   private cancels = new Set<() => void>();
 
@@ -72,15 +73,16 @@ export class GameContext {
     return chosen;
   }
 
-  /** Bruno sagt etwas: als Text und, falls verfügbar, als Sprache. */
-  tell(text: string) {
+  /** Bruno sagt etwas: als Text und, falls verfügbar, als Sprache. `spoken` ersetzt den Text für die Stimme. */
+  tell(text: string, spoken = text) {
     this.bubble = text;
-    say(text);
+    this.spoken = spoken;
+    say(spoken);
   }
 
   /** Wiederholt die aktuelle Ansage. */
   repeat() {
-    say(this.bubble);
+    say(this.spoken);
   }
 
   /** Spielt `fn` erst, wenn die Ansage beendet ist. */

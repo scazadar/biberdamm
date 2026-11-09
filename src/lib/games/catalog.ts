@@ -21,10 +21,14 @@ export const SKILLS: Record<string, string> = {
   'numbers.order': 'Zahlenreihe',
   'numbers.write': 'Ziffern schreiben',
   'numbers.line': 'Zahlenstrahl',
+  'numbers.compose': 'Zahlzerlegung',
+  'numbers.subitize': 'Mengen auf einen Blick',
   'math.add': 'Addition',
   'math.sub': 'Subtraktion',
   'words.spell': 'Wörter schreiben',
   'reading.texts': 'Texte lesen und verstehen',
+  'reading.blend': 'Laute verbinden',
+  'reading.syllables': 'Silben',
   'nature.habitats': 'Lebensräume',
   'nature.recycling': 'Müll & Recycling',
   'nature.animals': 'Tierwissen',
@@ -64,6 +68,10 @@ export const GAMES: GameDef[] = [
   { id: 'woerter', world: 'schule', title: 'Wörter bauen', icon: '🧩', motor: 'Tippen, Tastatur', levels: ['Kurze Wörter', 'Alle Wörter', 'Mit Extrabuchstaben'], tasks: [6, 6, 6], skill: fixed('words.spell') },
   { id: 'zahlenstrahl', world: 'schule', title: 'Zahlenstrahl', icon: '📏', motor: 'Ziehen, Tippen, Pfeiltasten', levels: ['Bis 10', 'Bis 20', 'Bis 100 in Fünferschritten'], tasks: [8, 8, 8], skill: fixed('numbers.line') },
   { id: 'lesen', world: 'schule', title: 'Lesezeit', icon: '📖', motor: 'Tippen', levels: ['Ein bis zwei Sätze', 'Drei Sätze', 'Kurze Geschichten'], tasks: [3, 3, 3], skill: fixed('reading.texts') },
+  { id: 'lautbruecke', world: 'schule', title: 'Lautbrücke', icon: '👂', motor: 'Tippen, Zifferntasten', levels: ['2–3 Laute, 2 Bilder', '3–4 Laute, 3 Bilder', '4–5 Laute, 4 Bilder'], tasks: [8, 8, 8], skill: fixed('reading.blend') },
+  { id: 'silben', world: 'schule', title: 'Silbenklatschen', icon: '🥁', motor: 'Tippen, Leertaste, Zifferntasten', levels: ['1–2 Silben zählen', '2–3 Silben zählen', 'Wort aus Silben bauen'], tasks: [6, 6, 6], skill: fixed('reading.syllables') },
+  { id: 'zahlenhaus', world: 'schule', title: 'Zahlenhaus', icon: '🏠', motor: 'Tippen, Zifferntasten', levels: ['Bis 5', 'Bis 10', 'Bis 20'], tasks: [5, 5, 5], skill: fixed('numbers.compose') },
+  { id: 'blitzblick', world: 'schule', title: 'Blitzblick', icon: '⚡', motor: 'Tippen, Zifferntasten', levels: ['Bis 5, geordnet', 'Bis 10 im Zehnerfeld', 'Bis 20 in zwei Zehnerfeldern'], tasks: [8, 8, 8], skill: fixed('numbers.subitize') },
   { id: 'quiz', world: null, title: 'Eigenes Quiz', icon: '❓', motor: 'Tippen, Tastatur', levels: ['Standard'], tasks: [20], skill: fixed('custom.quiz') }
 ];
 
