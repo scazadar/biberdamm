@@ -144,6 +144,7 @@ async function newChildContext(browser: Browser): Promise<BrowserContext> {
 test('Einrichtung, Klasse und Kinder anlegen', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveURL(/\/setup$/);
+  await expect(page.getByRole('link', { name: /Quellcode/ })).toHaveAttribute('href', 'https://github.com/scazadar/biberdamm');
   await page.getByLabel('Name der Schule').fill('Biberschule');
   await page.getByLabel('Dein Name').fill('Frau Admin');
   await page.getByLabel('Benutzername').fill(ADMIN.user);
@@ -209,10 +210,12 @@ test('Zahlenstrahl reagiert auf Tippen; Lese-Kachel verschwindet nach der Leseru
   const page = await context.newPage();
   await childLogin(page, 'Mia K.', miaPictures);
   await expect(page.getByTestId('daily-reading')).toBeVisible();
+  await expect(page.getByRole('link', { name: /Quellcode/ })).toBeVisible();
 
   await page.goto('/lernen/spiel/zahlenstrahl');
   const line = page.getByTestId('numline');
   await page.waitForLoadState('networkidle');
+  await expect(page.getByRole('link', { name: /Quellcode/ })).toHaveCount(0);
   const box = (await line.boundingBox())!;
   await line.click({ position: { x: box.width / 2, y: 60 } });
   await expect(line).toHaveAttribute('aria-valuenow', '5');

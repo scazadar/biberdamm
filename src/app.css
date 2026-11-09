@@ -54,6 +54,10 @@ label > input, label > select, label > textarea { margin-top: .25rem; font-weigh
 .error { background: var(--bad-bg); color: var(--bad); padding: .6rem .9rem; border-radius: 10px; margin-bottom: .8rem; }
 .notice { background: var(--ok-bg); color: var(--ok); padding: .6rem .9rem; border-radius: 10px; margin-bottom: .8rem; }
 
+.source-link { height: 2.75rem; display: flex; align-items: center; justify-content: center; }
+.source-link a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .75rem; color: var(--muted); }
+@media print { .source-link { display: none; } }
+
 .narrow { max-width: 28rem; margin: 3rem auto; padding: 0 1rem; }
 .page { max-width: 72rem; margin: 0 auto; padding: 1.2rem 1rem 3rem; }
 
@@ -82,7 +86,7 @@ caption { text-align: left; font-weight: 600; padding-bottom: .4rem; }
 .status-sicher { background: var(--ok-bg); color: var(--ok); }
 
 /* ---- Kinderbereich ---- */
-.kid { min-height: 100dvh; background: linear-gradient(#e4f3ee, var(--bg) 45%); font-size: 1.25rem; }
+.kid { min-height: calc(100dvh - 2.75rem); background: linear-gradient(#e4f3ee, var(--bg) 45%); font-size: 1.25rem; }
 .kid-top { display: flex; align-items: center; gap: .8rem; padding: .7rem 1rem; }
 .kid-top .name { font-weight: 700; }
 .stars { font-weight: 700; background: #fff; border-radius: 99px; padding: .3rem .9rem; border: 1px solid var(--line); }

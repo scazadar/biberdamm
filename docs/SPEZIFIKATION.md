@@ -67,6 +67,7 @@ Eine Installation bedient genau eine Schule. Das hält Betrieb und Datenschutz e
 - **F-26** Kinder sehen nie Ranglisten oder Daten anderer Kinder, außer der Namenskachel beim Anmelden.
 - **F-27** Inhalte werden über die Zeit verteilt wiederholt (5.3).
 - **F-28** Solange ein Kind heute noch keine `lesen`-Runde gespielt hat, zeigt die Startseite die Kachel „Heute schon gelesen?“. Sie ist ein Angebot ohne Serien, Erinnerungsdruck oder Verlustmechanik.
+- **F-29** Jede Seite verlinkt den Quellcode (AGPL 3.0, §13). Ausgenommen sind die laufende Spielrunde, damit Kinder nicht versehentlich hinausgelangen, und der Ausdruck.
 
 ### 3.4 Aufgaben (Lehrkraft)
 
