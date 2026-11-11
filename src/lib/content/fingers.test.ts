@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BUMP_KEYS, FINGER_BY_ID, FINGER_LEVELS, KEY_FINGER, KEY_ROWS, fingerPhrase } from './fingers';
+import { TYPING_WORDS, BUMP_KEYS, FINGER_BY_ID, FINGER_LEVELS, KEY_FINGER, KEY_ROWS, fingerPhrase } from './fingers';
 
 const ALPHABET = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 
@@ -28,5 +28,11 @@ describe('Zehn-Finger-System', () => {
     expect(fingerPhrase('f')).toBe('mit dem linken Zeigefinger');
     expect(fingerPhrase('P')).toBe('mit dem rechten kleinen Finger');
     expect(fingerPhrase('K')).toBe('mit dem rechten Mittelfinger');
+  });
+
+  it('Tippwörter bestehen nur aus Tasten der Tastatur und sind eindeutig', () => {
+    for (const w of TYPING_WORDS) expect(w.word.toUpperCase(), w.word).toMatch(/^[A-Z]{3,5}$/);
+    expect(new Set(TYPING_WORDS.map((w) => w.word)).size).toBe(TYPING_WORDS.length);
+    expect(new Set(TYPING_WORDS.map((w) => w.emoji)).size).toBe(TYPING_WORDS.length);
   });
 });

@@ -99,6 +99,7 @@ Motorik: T = Tastatur, K = Klick/Tippen, Z = Ziehen, M = Malen.
 |---|---|---|---|---|
 | `tasten` | Buchstaben-Tasten | Buchstaben erkennen | T K | Großbuchstaben / Kleinbuchstaben / gemischt ohne Bildhilfe |
 | `zehnfinger` *(neu)* | Zehn Finger | Zehn-Finger-Schreiben | T K | nur Zeigefinger / mittlere Reihe, alle Finger / mittlere und obere Reihe / alle Buchstaben, Hilfe nach Fehlern (4 Stufen) |
+| `biberpfad` *(neu)* | Biberpfad | Zehn-Finger-Schreiben | T K | mittlere Reihe / alle Buchstaben / kurze Wörter |
 | `zaehlen` | Zählen | Mengen erfassen | K T | bis 5 / bis 10 / bis 15 |
 | `ballons` | Luftballons | Zeichen wiedererkennen | K | Ziffern / Großbuchstaben / Kleinbuchstaben |
 | `anlaute` | Anfangsbuchstaben | Anlaute | Z K T | 2 / 3 / 4 Auswahlbuchstaben |
@@ -124,6 +125,8 @@ Motorik: T = Tastatur, K = Klick/Tippen, Z = Ziehen, M = Malen.
 | `quiz` *(neu)* | Eigenes Quiz | von der Lehrkraft | K T | keine Stufen |
 
 **`zehnfinger`:** Das Kind tippt den genannten Buchstaben mit dem richtigen Finger. Zwei Hände zeigen, welcher Finger dran ist, die Tasten sind nach Fingern eingefärbt, F und J tragen eine Tastmarke. Bruno nennt Buchstabe und Finger („Tippe das F mit dem linken Zeigefinger.“) und erklärt zu Beginn der Runde die Grundstellung. Stufe 1 übt nur die Zeigefinger (F G R T V B, J H U Z N M), Stufe 2 die mittlere Reihe, Stufe 3 zusätzlich die obere Reihe, Stufe 4 alle Buchstaben; dort erscheinen Hände und Farben erst nach einem Fehler. Ob wirklich der richtige Finger tippt, kann die App nicht prüfen. Rückmeldung bei Fehlern: getippter Buchstabe und richtiger Finger („Das war das K. Das F tippst du mit dem linken Zeigefinger.“). Ä, Ö, Ü und ß sind noch nicht enthalten.
+
+**`biberpfad`:** Ein Tipp-Abenteuer: Bruno läuft zu seinem Damm, vor jedem Hindernis steht ein Schild mit einem Buchstaben oder Wort. Tippt das Kind richtig, springt Bruno darüber und sammelt ein Stück Holz. Die Hindernisse warten, bis getippt wurde (B-06: kein Zeitdruck, nichts geht verloren); im Ruhemodus springt Bruno nicht, das Hindernis wechselt sofort. Tastatur und Hände wie bei `zehnfinger`. Auf Stufe 3 werden kurze Wörter Buchstabe für Buchstabe getippt; Hände und Farben erscheinen dort erst nach einem Fehler. Rückmeldung bei Fehlern wie bei `zehnfinger`.
 
 **`zahlenstrahl`:** Das Kind bringt Bruno an die genannte Zahl. Nur Eckpunkte sind beschriftet, damit die Lage geschätzt und nicht abgelesen wird. Rückmeldung bei Fehlern: genannte Position und Richtung („Das ist die 6. Die 7 liegt weiter rechts.“).
 

@@ -62,3 +62,32 @@ export function fingerPhrase(letter: string): string {
   const adj = f.hand === 'links' ? 'linken' : 'rechten';
   return f.name === 'kleiner Finger' ? `mit dem ${adj} kleinen Finger` : `mit dem ${adj} ${f.name}`;
 }
+
+export interface TypingWord {
+  word: string;
+  emoji: string;
+}
+
+/** Kurze Wörter zum Abtippen: nur A–Z, ohne Umlaute und ß. */
+export const TYPING_WORDS: TypingWord[] = [
+  { word: 'Hund', emoji: '🐶' },
+  { word: 'Maus', emoji: '🐭' },
+  { word: 'Ball', emoji: '⚽' },
+  { word: 'Baum', emoji: '🌳' },
+  { word: 'Nase', emoji: '👃' },
+  { word: 'Igel', emoji: '🦔' },
+  { word: 'Haus', emoji: '🏠' },
+  { word: 'Auto', emoji: '🚗' },
+  { word: 'Mond', emoji: '🌙' },
+  { word: 'Wal', emoji: '🐳' },
+  { word: 'Uhr', emoji: '⌚' },
+  { word: 'Rose', emoji: '🌹' },
+  { word: 'Eis', emoji: '🍦' },
+  { word: 'Kuh', emoji: '🐄' },
+  { word: 'Bus', emoji: '🚌' },
+  { word: 'Zug', emoji: '🚂' },
+  { word: 'Hut', emoji: '👒' },
+  { word: 'Boot', emoji: '⛵' },
+  { word: 'Fisch', emoji: '🐟' },
+  { word: 'Sonne', emoji: '☀️' }
+];

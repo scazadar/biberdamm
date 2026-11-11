@@ -45,6 +45,10 @@ const solvers: Record<string, (page: Page) => Promise<void>> = {
   zehnfinger: async (p) => {
     await p.keyboard.press((await p.getByTestId('target').innerText()).toLowerCase());
   },
+  biberpfad: async (p) => {
+    const next = await p.getByTestId('target').getAttribute('data-next', { timeout: 1000 });
+    if (next) await p.keyboard.press(next.toLowerCase());
+  },
   zaehlen: async (p) => {
     const n = await p.getByTestId('things').getAttribute('data-count');
     await p.locator('.choice', { hasText: new RegExp(`^${n}$`) }).click();
@@ -438,7 +442,7 @@ test('neue Spiele laufen auch auf den höheren Stufen', async ({ page, browser }
   test.setTimeout(600_000);
   await login(page, ADMIN.user, ADMIN.pass);
   await page.goto(`${classUrl}/aufgaben`);
-  const tasks = ['lautbruecke', 'silben', 'zahlenhaus', 'blitzblick', 'zehnerfeld', 'quatsch', 'reime', 'hunderterfeld', 'zehnfinger'].flatMap((game) => (game === 'zehnfinger' ? [2, 3, 4] : [2, 3]).map((level) => ({ game, level })));
+  const tasks = ['lautbruecke', 'silben', 'zahlenhaus', 'blitzblick', 'zehnerfeld', 'quatsch', 'reime', 'hunderterfeld', 'zehnfinger', 'biberpfad'].flatMap((game) => (game === 'zehnfinger' ? [2, 3, 4] : [2, 3]).map((level) => ({ game, level })));
   for (const { game, level } of tasks) {
     const before = await page.getByTestId('assignment').count();
     await page.getByLabel('Spiel').selectOption(game);
