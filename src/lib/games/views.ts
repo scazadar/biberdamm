@@ -5,6 +5,7 @@ type Loader = () => Promise<{ default: Component }>;
 /** Spielkomponenten werden einzeln nachgeladen. */
 export const VIEWS: Record<string, Loader> = {
   tasten: () => import('./views/Tasten.svelte'),
+  zehnfinger: () => import('./views/Zehnfinger.svelte'),
   zaehlen: () => import('./views/Zaehlen.svelte'),
   ballons: () => import('./views/Ballons.svelte'),
   anlaute: () => import('./views/Anlaute.svelte'),

@@ -42,6 +42,9 @@ const solvers: Record<string, (page: Page) => Promise<void>> = {
   tasten: async (p) => {
     await p.keyboard.press((await p.getByTestId('target').innerText()).toUpperCase());
   },
+  zehnfinger: async (p) => {
+    await p.keyboard.press((await p.getByTestId('target').innerText()).toLowerCase());
+  },
   zaehlen: async (p) => {
     const n = await p.getByTestId('things').getAttribute('data-count');
     await p.locator('.choice', { hasText: new RegExp(`^${n}$`) }).click();
@@ -431,11 +434,11 @@ test('fremde Lehrkraft kommt nicht an die Klasse; Startpasswort muss geändert w
   await expect(page.locator('tr[data-student]')).toHaveCount(3);
 });
 
-test('neue Spiele laufen auch auf den Stufen 2 und 3', async ({ page, browser }) => {
+test('neue Spiele laufen auch auf den höheren Stufen', async ({ page, browser }) => {
   test.setTimeout(600_000);
   await login(page, ADMIN.user, ADMIN.pass);
   await page.goto(`${classUrl}/aufgaben`);
-  const tasks = ['lautbruecke', 'silben', 'zahlenhaus', 'blitzblick', 'zehnerfeld', 'quatsch', 'reime', 'hunderterfeld'].flatMap((game) => [2, 3].map((level) => ({ game, level })));
+  const tasks = ['lautbruecke', 'silben', 'zahlenhaus', 'blitzblick', 'zehnerfeld', 'quatsch', 'reime', 'hunderterfeld', 'zehnfinger'].flatMap((game) => (game === 'zehnfinger' ? [2, 3, 4] : [2, 3]).map((level) => ({ game, level })));
   for (const { game, level } of tasks) {
     const before = await page.getByTestId('assignment').count();
     await page.getByLabel('Spiel').selectOption(game);

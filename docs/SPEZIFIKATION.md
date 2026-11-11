@@ -98,6 +98,7 @@ Motorik: T = Tastatur, K = Klick/Tippen, Z = Ziehen, M = Malen.
 | ID | Spiel | Kompetenz | Motorik | Stufe 1 / 2 / 3 |
 |---|---|---|---|---|
 | `tasten` | Buchstaben-Tasten | Buchstaben erkennen | T K | Großbuchstaben / Kleinbuchstaben / gemischt ohne Bildhilfe |
+| `zehnfinger` *(neu)* | Zehn Finger | Zehn-Finger-Schreiben | T K | nur Zeigefinger / mittlere Reihe, alle Finger / mittlere und obere Reihe / alle Buchstaben, Hilfe nach Fehlern (4 Stufen) |
 | `zaehlen` | Zählen | Mengen erfassen | K T | bis 5 / bis 10 / bis 15 |
 | `ballons` | Luftballons | Zeichen wiedererkennen | K | Ziffern / Großbuchstaben / Kleinbuchstaben |
 | `anlaute` | Anfangsbuchstaben | Anlaute | Z K T | 2 / 3 / 4 Auswahlbuchstaben |
@@ -121,6 +122,8 @@ Motorik: T = Tastatur, K = Klick/Tippen, Z = Ziehen, M = Malen.
 | `reime` *(neu)* | Reimpaare | Reime erkennen | K T | 2 / 3 / 4 Bilder zur Wahl |
 | `hunderterfeld` *(neu)* | Hunderterfeld | Zahlenraum bis 100 | K T | alle Zahlen sichtbar / nur Zehnerzahlen sichtbar / leeres Feld |
 | `quiz` *(neu)* | Eigenes Quiz | von der Lehrkraft | K T | keine Stufen |
+
+**`zehnfinger`:** Das Kind tippt den genannten Buchstaben mit dem richtigen Finger. Zwei Hände zeigen, welcher Finger dran ist, die Tasten sind nach Fingern eingefärbt, F und J tragen eine Tastmarke. Bruno nennt Buchstabe und Finger („Tippe das F mit dem linken Zeigefinger.“) und erklärt zu Beginn der Runde die Grundstellung. Stufe 1 übt nur die Zeigefinger (F G R T V B, J H U Z N M), Stufe 2 die mittlere Reihe, Stufe 3 zusätzlich die obere Reihe, Stufe 4 alle Buchstaben; dort erscheinen Hände und Farben erst nach einem Fehler. Ob wirklich der richtige Finger tippt, kann die App nicht prüfen. Rückmeldung bei Fehlern: getippter Buchstabe und richtiger Finger („Das war das K. Das F tippst du mit dem linken Zeigefinger.“). Ä, Ö, Ü und ß sind noch nicht enthalten.
 
 **`zahlenstrahl`:** Das Kind bringt Bruno an die genannte Zahl. Nur Eckpunkte sind beschriftet, damit die Lage geschätzt und nicht abgelesen wird. Rückmeldung bei Fehlern: genannte Position und Richtung („Das ist die 6. Die 7 liegt weiter rechts.“).
 

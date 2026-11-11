@@ -16,6 +16,7 @@ export const SKILLS: Record<string, string> = {
   'letters.recognize': 'Buchstaben erkennen',
   'letters.sounds': 'Anlaute',
   'letters.write': 'Buchstaben schreiben',
+  'keyboard.fingers': 'Zehn-Finger-Schreiben',
   'numbers.recognize': 'Ziffern erkennen',
   'numbers.count': 'Mengen zählen',
   'numbers.order': 'Zahlenreihe',
@@ -58,6 +59,7 @@ const fixed = (s: string) => () => s;
 
 export const GAMES: GameDef[] = [
   { id: 'tasten', world: 'zeichen', title: 'Buchstaben-Tasten', icon: '⌨️', motor: 'Tastatur, Tippen', levels: ['Großbuchstaben', 'Kleinbuchstaben', 'Gemischt ohne Bildhilfe'], tasks: [8, 8, 10], skill: fixed('letters.recognize') },
+  { id: 'zehnfinger', world: 'zeichen', title: 'Zehn Finger', icon: '🖐️', motor: 'Tastatur mit zehn Fingern', levels: ['Nur Zeigefinger', 'Mittlere Reihe, alle Finger', 'Mittlere und obere Reihe', 'Alle Buchstaben, Hilfe nach Fehlern'], tasks: [10, 10, 12, 12], skill: fixed('keyboard.fingers') },
   { id: 'zaehlen', world: 'zeichen', title: 'Zählen', icon: '🍎', motor: 'Tippen, Zifferntasten', levels: ['Bis 5', 'Bis 10', 'Bis 15'], tasks: [8, 8, 8], skill: fixed('numbers.count') },
   { id: 'ballons', world: 'zeichen', title: 'Luftballons', icon: '🎈', motor: 'Bewegte Ziele treffen', levels: ['Ziffern', 'Großbuchstaben', 'Kleinbuchstaben'], tasks: [8, 8, 8], skill: (l) => (l === 1 ? 'numbers.recognize' : 'letters.recognize') },
   { id: 'anlaute', world: 'zeichen', title: 'Anfangsbuchstaben', icon: '🐒', motor: 'Ziehen, Tippen, Tastatur', levels: ['2 Buchstaben zur Wahl', '3 Buchstaben zur Wahl', '4 Buchstaben zur Wahl'], tasks: [8, 8, 8], skill: fixed('letters.sounds') },
